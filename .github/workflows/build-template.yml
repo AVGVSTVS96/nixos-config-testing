@@ -28,7 +28,7 @@ jobs:
       - name: Initialize Nix Flake
         run: |
           mkdir -p my-config && cd my-config
-          nix flake --extra-experimental-features 'nix-command flakes' init -t github:dustinlyons/nixos-config#${{ inputs.template }}
+          nix flake --extra-experimental-features 'nix-command flakes' init -t github:avgvstvs96/nixos-config#${{ inputs.template }}
 
       - name: Apply CI User Info
         run: |
@@ -74,4 +74,3 @@ jobs:
       - name: Determine build result
         id: build-result
         run: echo "success=${{ env.success }}" >> $GITHUB_OUTPUT
-

@@ -2,14 +2,14 @@ name: Update Flake Lock
 
 on:
   schedule:
-    - cron: '0 23 * * 0' # Every Sunday at 11:00 PM
+    - cron: "0 23 * * 0" # Every Sunday at 11:00 PM
 
 jobs:
   check-build:
     uses: ./.github/workflows/build-template.yml
     with:
-      template: 'starter'
-      arch: 'x86_64-linux'
+      template: "starter"
+      arch: "x86_64-linux"
 
   update-flake:
     runs-on: ubuntu-latest
@@ -27,7 +27,7 @@ jobs:
       - name: Initalize flake
         run: |
           mkdir -p my-config && cd my-config
-          nix flake --extra-experimental-features 'nix-command flakes' init -t github:dustinlyons/nixos-config#starter
+          nix flake --extra-experimental-features 'nix-command flakes' init -t github:avgvstvs96/nixos-config#starter
 
       - name: Apply CI User Info
         run: |
