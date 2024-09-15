@@ -72,6 +72,10 @@
     in
     {
       templates = {
+        default = {
+          path = ./.;
+          description = "My Custom Nix Configuration";
+        };
         starter = {
           path = ./templates/starter;
           description = "Starter configuration";
