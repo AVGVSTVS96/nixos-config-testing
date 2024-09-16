@@ -56,12 +56,12 @@ insert_secrets_input() {
     };
 EOF
 
-  if grep -q 'url = "git+ssh://git@github.com/%GITHUB_USER%/%GITHUB_SECRETS_REPO%.git"' "$FILE_PATH"; then
-      echo "The 'secrets' block already exists in the file."
-      rm "$TEMP_FILE"
-      rm "${FILE_PATH}.bak"
-      exit 0
-  fi
+  # if grep -q 'url = "git+ssh://git@github.com/%GITHUB_USER%/%GITHUB_SECRETS_REPO%.git"' "$FILE_PATH"; then
+  #     echo "The 'secrets' block already exists in the file."
+  #     rm "$TEMP_FILE"
+  #     rm "${FILE_PATH}.bak"
+  #     exit 0
+  # fi
 
   START_LINE=$(grep -n 'disko = {' "$FILE_PATH" | head -n 1 | cut -d: -f1)
   END_LINE=$(tail -n +$START_LINE "$FILE_PATH" | grep -n '};' | head -n 1 | cut -d: -f1)
@@ -89,7 +89,7 @@ ask_for_star() {
   fi
 }
 
-ask_for_star
+# ask_for_star
 
 export USERNAME=$(whoami)
 
@@ -110,16 +110,16 @@ if [[ -z "$GIT_NAME" ]]; then
 fi
 
 _prompt "${YELLOW}Please enter your Github username: ${NC}" GITHUB_USER
-_prompt "${YELLOW}Please enter your Github secrets repository name: ${NC}" GITHUB_SECRETS_REPO
+# _prompt "${YELLOW}Please enter your Github secrets repository name: ${NC}" GITHUB_SECRETS_REPO
 
 export GITHUB_USER
-export GITHUB_SECRETS_REPO
+# export GITHUB_SECRETS_REPO
 
 confirm_details() {
   _print "${GREEN}Username: $USERNAME"
   _print "Email: $GIT_EMAIL"
   _print "Name: $GIT_NAME${NC}"
-  _print "${GREEN}Secrets repository: $GITHUB_USER/$GITHUB_SECRETS_REPO${NC}"
+  # _print "${GREEN}Secrets repository: $GITHUB_USER/$GITHUB_SECRETS_REPO${NC}"
 
   _prompt "${YELLOW}Is this correct? yes/no: ${NC}" choice
 
@@ -139,12 +139,12 @@ replace_tokens() {
     LC_ALL=C LANG=C sed -i '' -e "s/%EMAIL%/$GIT_EMAIL/g" "$file"
     LC_ALL=C LANG=C sed -i '' -e "s/%NAME%/$GIT_NAME/g" "$file"
     LC_ALL=C LANG=C sed -i '' -e "s/%GITHUB_USER%/$GITHUB_USER/g" "$file"
-    LC_ALL=C LANG=C sed -i '' -e "s/%GITHUB_SECRETS_REPO%/$GITHUB_SECRETS_REPO/g" "$file"
+    # LC_ALL=C LANG=C sed -i '' -e "s/%GITHUB_SECRETS_REPO%/$GITHUB_SECRETS_REPO/g" "$file"
   fi
 }
 
-insert_secrets_input
-insert_secrets_output
+# insert_secrets_input
+# insert_secrets_output
 
 export -f replace_tokens
 find . -type f -exec bash -c 'replace_tokens "$0"' {} \;

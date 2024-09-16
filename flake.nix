@@ -56,8 +56,23 @@
         "check-keys" = mkApp "check-keys" system;
         "rollback" = mkApp "rollback" system;
       };
+      mkDarwinTemplate = { system }: {
+      inherit system;
+      description = "Template for Darwin system";
+      # Additional configuration logic for the Darwin template can go here
+    };
+
+  # Defining the templates attribute based on the systems provided
+  templates = {
+    default = nixpkgs.lib.genAttrs systems mkDarwinTemplate;
+  };
+  
     in
     {
+      defaultPackage = {
+        x86_64-linux = templates.default.x86_64-linux;
+        aarch64-darwin = templates.default.aarch64-darwin;
+      };
       devShells = forAllSystems devShell;
       apps = nixpkgs.lib.genAttrs systems mkDarwinApps;
 
