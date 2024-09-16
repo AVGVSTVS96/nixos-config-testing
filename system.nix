@@ -4,7 +4,6 @@
   imports = [
     ../modules/home-manager.nix
     ../modules
-    ../modules/shared
   ];
 
   # Auto upgrade nix package and the daemon service.
@@ -40,10 +39,9 @@
   # Turn off NIX_PATH warnings now that we're using flakes
   system.checks.verifyNixPath = false;
 
-  # Load configuration that is shared across systems
   environment.systemPackages = with pkgs; [
     # emacs-unstable
-  ] ++ (import ../modules/shared/packages.nix { inherit pkgs; });
+  ] ++ (import ../modules/packages.nix { inherit pkgs; });
 
   system = {
     stateVersion = 23.11; # Updated to a more recent version

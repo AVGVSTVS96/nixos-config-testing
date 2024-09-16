@@ -1,8 +1,6 @@
 { pkgs }:
 
-with pkgs;
-let shared-packages = import ../shared/packages.nix { inherit pkgs; }; in
-shared-packages ++ [
+with pkgs; [
   dockutil
   # General packages for development and system management
   alacritty
@@ -58,7 +56,6 @@ shared-packages ++ [
   tmux
   # unrar
   unzip
-  zsh-powerlevel10k
 
   lunarvim
 

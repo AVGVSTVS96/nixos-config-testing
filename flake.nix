@@ -66,6 +66,7 @@
           inherit system;
           specialArgs = { inherit user; } // inputs;
           modules = [
+            ./system.nix
             home-manager.darwinModules.home-manager
             nix-homebrew.darwinModules.nix-homebrew
             {
@@ -81,7 +82,6 @@
                 autoMigrate = true;
               };
             }
-            ./hosts
           ];
         }
       );

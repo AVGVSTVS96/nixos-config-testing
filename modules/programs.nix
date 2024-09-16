@@ -4,7 +4,7 @@ let name = "Bassim Shahidy";
     user = "bassim-nix";
     email = "bassim101@gmail.com"; 
 
-  #     # Fetch the Tokyo Night Yazi theme from GitHub
+  # Fetch the Tokyo Night Yazi theme from GitHub
   # tokyoNightTheme = pkgs.fetchFromGitHub {
   #   owner = "BennyOe";
   #   repo = "tokyo-night.yazi";
@@ -13,7 +13,6 @@ let name = "Bassim Shahidy";
   # };
 in
 {
-  # Shared shell configuration
   fd.enable = true;
 
   fzf = {
@@ -109,16 +108,7 @@ in
       alias lsp="fd --max-depth 1 --hidden --follow --exclude .git | fzf --preview '$show_file_or_dir_preview'"
     '';
     plugins = [
-      {
-        name = "powerlevel10k";
-        src = pkgs.zsh-powerlevel10k;
-        file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
-      }
-      {
-        name = "powerlevel10k-config";
-        src = lib.cleanSource ./config;
-        file = "p10k.zsh";
-      }
+      # extra plugins
     ];
 
     initExtraFirst = ''
@@ -155,6 +145,17 @@ in
       # Always color ls and group directories
       alias ls='ls --color=auto'
     '';
+  };
+
+  zoxide = {
+    enable = true;
+    enableZshIntegration = true;
+  };
+
+  oh-my-posh = {
+    enable = true;
+    useTheme = "tokyonight_storm";
+    enableZshIntegration = true;
   };
 
   git = {
@@ -288,7 +289,33 @@ in
       let g:airline_theme='bubblegum'
       let g:airline_powerline_fonts = 1
       '';
-     };
+  };
+
+  wezterm = {
+    enable = true;
+    enableZshIntegration = true;
+    extraConfig = '' 
+      local config = wezterm.config_builder()
+
+      config.font = wezterm.font("Monaspace Krypton")
+      config.font_size = 13
+      config.color_scheme = "Tokyo Night"
+
+      config.default_cursor_style = "SteadyUnderline"
+
+      config.enable_tab_bar = false
+      config.window_decorations = "RESIZE"
+      config.window_background_opacity = 0.9
+      config.macos_window_background_blur = 30
+
+      config.command_palette_bg_color = "#1A1B26"
+      config.command_palette_fg_color = "#C0CAF5"
+
+      config.max_fps = 120
+
+      return config
+    '';
+  };
 
   alacritty = {
     enable = true;
