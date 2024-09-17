@@ -76,6 +76,10 @@
     in
     {
       templates = {
+        custom = {
+          path = ./templates/custom;
+          description = "My custom configuration";
+        };
         starter = {
           path = ./templates/starter;
           description = "Starter configuration";
