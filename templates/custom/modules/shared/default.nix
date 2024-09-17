@@ -14,16 +14,18 @@ in
     };
 
     overlays =
+      # TODO Uncomment to enable overlays after first build
       # Apply each overlay found in the /overlays directory
-      let path = ../../overlays; in with builtins;
-      map (n: import (path + ("/" + n)))
-          (filter (n: match ".*\\.nix" n != null ||
-                      pathExists (path + ("/" + n + "/default.nix")))
-                  (attrNames (readDir path)))
+      # let path = ../../overlays; in with builtins;
+      # map (n: import (path + ("/" + n)))
+      #     (filter (n: match ".*\\.nix" n != null ||
+      #                 pathExists (path + ("/" + n + "/default.nix")))
+      #             (attrNames (readDir path)))
+      # TODO
 
-      ++ [(import (builtins.fetchTarball {
-               url = "https://github.com/dustinlyons/emacs-overlay/archive/refs/heads/master.tar.gz";
-               sha256 = emacsOverlaySha256;
-           }))];
+      # ++ [(import (builtins.fetchTarball {
+      #          url = "https://github.com/dustinlyons/emacs-overlay/archive/refs/heads/master.tar.gz";
+      #          sha256 = emacsOverlaySha256;
+      #      }))];
   };
 }
